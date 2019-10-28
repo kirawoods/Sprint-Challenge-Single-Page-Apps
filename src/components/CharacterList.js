@@ -38,12 +38,13 @@ export default function CharacterList() {
 
   return (
     <div>
+      <br />
       <SearchForm
         search={searchTerm}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-
+      <hr></hr>
       <section className="character-list">
         {characters.map(character => {
           return (

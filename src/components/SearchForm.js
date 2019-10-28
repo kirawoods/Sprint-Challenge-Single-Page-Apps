@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function SearchForm(props) {
   return (
     <section className="search-form">
       <form onSubmit={props.handleSubmit}>
-        <label htmlFor="search">Search by Name: </label>
+        <label htmlFor="search" className="search-label">
+          Search by Name:{" "}
+        </label>
         <input
           name="search"
           type="text"
