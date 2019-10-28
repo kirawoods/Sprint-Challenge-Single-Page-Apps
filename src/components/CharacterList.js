@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from "reactstrap";
+
+import SearchForm from "./SearchForm";
+import CharacterCard from "./CharacterCard";
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
@@ -26,19 +20,45 @@ export default function CharacterList() {
     };
     getCharacters();
   }, []);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = event => {
+    event.preventDefault();
+    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const filteringCharacters = characters.filter(x =>
+      x.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setCharacters(filteringCharacters);
+  };
+
   return (
-    <section className="character-list">
-      {characters.map(character => (
-        <Card className="character-card" key={character.id}>
-          <CardImg src={character.image} alt={character.name}></CardImg>
-          <CardBody>
-            <CardTitle>{character.name}</CardTitle>
-            <CardText>Gender: {character.gender}</CardText>
-            <CardText>Species: {character.species}</CardText>
-            <CardText>Status: {character.status}</CardText>
-          </CardBody>
-        </Card>
-      ))}
-    </section>
+    <div>
+      <SearchForm
+        search={searchTerm}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+
+      <section name="character-list">
+        {characters.map(character => {
+          return (
+            <CharacterCard
+              key={character.id}
+              name={character.name}
+              image={character.image}
+              gender={character.gender}
+              species={character.species}
+              status={character.status}
+              origin={character.origin.name}
+            />
+          );
+        })}
+      </section>
+    </div>
   );
 }
