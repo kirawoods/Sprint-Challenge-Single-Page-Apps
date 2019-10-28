@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button
+} from "reactstrap";
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
@@ -20,7 +29,15 @@ export default function CharacterList() {
   return (
     <section className="character-list">
       {characters.map(character => (
-        <h2 key={character.id}>{character.name}</h2>
+        <Card className="character-card" key={character.id}>
+          <CardImg src={character.image} alt={character.name}></CardImg>
+          <CardBody>
+            <CardTitle>{character.name}</CardTitle>
+            <CardText>Gender: {character.gender}</CardText>
+            <CardText>Species: {character.species}</CardText>
+            <CardText>Status: {character.status}</CardText>
+          </CardBody>
+        </Card>
       ))}
     </section>
   );
