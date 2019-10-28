@@ -44,7 +44,7 @@ export default function CharacterList() {
         handleSubmit={handleSubmit}
       />
 
-      <section name="character-list">
+      <section className="character-list">
         {characters.map(character => {
           return (
             <CharacterCard
